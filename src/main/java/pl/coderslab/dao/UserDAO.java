@@ -23,6 +23,9 @@ public class UserDAO {
     private static final String FIND_ALL_USERS_QUERY =
             "SELECT * FROM users";
 
+    private static final String FIND_ONE_BY_USERNAME =
+            "SELECT * FROM users WHERE username = ?";
+
     public void create(User user) throws SQLException {
 
         try(Connection conn = DbUtil.getConnection()){
@@ -56,6 +59,26 @@ public class UserDAO {
         try (Connection conn = DbUtil.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(READ_USER_QUERY);
             statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setUserName(resultSet.getString("username"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setUserGroupId(resultSet.getInt("user_group_id"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public User findByUsername(String username) {
+        try (Connection conn = DbUtil.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(FIND_ONE_BY_USERNAME);
+            statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 User user = new User();

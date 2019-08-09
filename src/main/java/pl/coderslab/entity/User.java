@@ -1,18 +1,19 @@
 package pl.coderslab.entity;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 public class User {
 
     public User(String userName, String email, String password) {
-        this.userName = userName;
-        this.email = email;
-        this.hashPassword(password);
+        setUserName(userName);
+        setEmail(email);
+        setPassword(password);
+
     }
 
-    public User(){};
+    public User() {
+    }
 
-     private int id;
+
+    private int id;
     private String userName;
     private String email;
     private String password;
@@ -55,11 +56,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        hashPassword(password);
-
+        this.password = password;
     }
 
-    public void hashPassword(String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-    }
 }
