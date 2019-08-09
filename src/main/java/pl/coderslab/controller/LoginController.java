@@ -23,6 +23,7 @@ public class LoginController extends HttpServlet {
         if(user != null){
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
+            response.sendRedirect("/admin");
         }else{
             response.getWriter().append("Błędne dane logowania");
             doGet(request,response);

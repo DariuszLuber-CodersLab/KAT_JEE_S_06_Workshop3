@@ -23,8 +23,8 @@ public class RegisterConrtroller extends HttpServlet {
             response.sendRedirect("/login");
 
         } catch (Exception e) {
-           response.getWriter().append("Błędne dane");
-           doGet(request,response);
+           response.getWriter().append(e.getMessage());
+//           doGet(request,response);
         }
 
 

@@ -22,7 +22,7 @@ public class UserService {
             userDAO.create(user);
 
             return user;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new Exception("Error");
         }
     }
